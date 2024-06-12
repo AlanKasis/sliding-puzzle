@@ -210,6 +210,7 @@ const resetUI = () => {
 const startGame = () => {
   generatePuzzle();
   shufflePuzzle(HARD_SHUFFLE_MOVES);
+  resetGameState();
 };
 
 puzzle.addEventListener("click", (e) => {
