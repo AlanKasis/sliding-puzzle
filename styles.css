@@ -133,10 +133,6 @@ body {
   display: grid;
   grid-template-columns: 1.5fr auto;
   gap: 1rem;
-
-  @media (max-width: 768px) {
-    grid-template-rows: 1fr 1fr;
-  }
 }
 
 .slide-right {
