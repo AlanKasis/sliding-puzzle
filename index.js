@@ -209,6 +209,7 @@ const resetUI = () => {
 
 const startGame = () => {
   generatePuzzle();
+  shufflePuzzle(HARD_SHUFFLE_MOVES);
 };
 
 puzzle.addEventListener("click", (e) => {
