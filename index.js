@@ -1,5 +1,5 @@
 const N = 4;
-const PUZZLE_SIZE = 500;
+const PUZZLE_SIZE = 400;
 const HARD_SHUFFLE_MOVES = 100;
 const EASY_SHUFFLE_MOVES = 5;
 const shuffleButton = document.getElementById("shuffle-button");
@@ -60,6 +60,7 @@ const setPieceStyle = (piece, pieceIndex) => {
     piece.style.background = "transparent";
   } else {
     piece.style.backgroundImage = "url(/public/puzzle-image.jpg)";
+    piece.style.backgroundSize = `${PUZZLE_SIZE}px`
     piece.style.backgroundPosition = `-${
       (pieceIndex % N) * (PUZZLE_SIZE / N)
     }px -${Math.floor(pieceIndex / N) * (PUZZLE_SIZE / N)}px`;

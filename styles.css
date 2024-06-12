@@ -9,7 +9,7 @@ body {
   display: flex;
   min-width: 100vw;
   min-height: 90vh;
-  overflow: hidden;
+  overflow-x: hidden;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -22,8 +22,9 @@ body {
 
 .award {
   display: none;
-  width: 48px;
+  width: 32px;
   margin-bottom: 2rem;
+  margin-top: -0.5rem;
 }
 
 .background {
@@ -95,11 +96,12 @@ body {
   justify-content: space-between;
   width: 100%;
   max-width: 350px;
+  max-height: 460px;
   background-color: #9C9487;
   border-radius: 30px;
   border: 1px solid #4D424020;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
 }
 
 .puzzle {
@@ -107,12 +109,13 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  width: 560px;
-  height: 560px;
+  width: 460px;
+  height: 460px;
   background-color: #444444;
   border: 30px solid black;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: auto 0;
 }
 
 .puzzle__image {
