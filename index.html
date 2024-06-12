@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"href="styles.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Sliding Puzzle - Alan Kasis</title>
-</head>
-<body>
-    <h1>Sliding Puzzle Game - Alan Kasis</h1>
-    <div class="puzzle" id="puzzle">
+  </head>
+  <body>
+    <div class="background"></div>
+    <h1 class="title">Sliding Puzzle Game - Alan Kasis</h1>
+    <div class="puzzle-wrapper">
+      <div class="puzzle" id="puzzle">
+        <img src="/public/puzzle-image.jpg" class="puzzle__image win" id="puzzle-image" />
         <div class="puzzle__piece" id="piece-0-0"></div>
         <div class="puzzle__piece" id="piece-0-1"></div>
         <div class="puzzle__piece" id="piece-0-2"></div>
@@ -25,8 +34,28 @@
         <div class="puzzle__piece" id="piece-3-1"></div>
         <div class="puzzle__piece" id="piece-3-2"></div>
         <div class="puzzle__piece" id="piece-3-3"></div>
+      </div>
+      <div class="panel">
+        <div class="moves-container">
+          <h1>Moves</h1>
+          <h2 id="moves-counter">0</h2>
+        </div>
+        <div class="win-container">
+            <h1>Yay!<h1>
+                <h3>You won in <span id="winning-moves"></span> moves</h3>
+                <img src="/public/award.png" id="award" class="award" />
+          </div>
+        <div class="buttons-container">
+          <button class="button-primary" id="shuffle-button">
+            Shuffle! (for real)
+          </button>
+          <h3>Or</h3>
+          <button class="button-primary" id="easy-shuffle-button">
+            Simulate a suspiciously easy shuffle for testing purposes
+          </button>
+        </div>
+      </div>
     </div>
-    <button id="shuffle-button">Shuffle!</button>
-</body>
-<script type="module" src="index.js"></script>
+  </body>
+  <script type="module" src="index.js"></script>
 </html>

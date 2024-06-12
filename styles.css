@@ -7,27 +7,136 @@ html {
 
 body {
   display: flex;
-  min-width: 100vh;
-  min-height: 100vh;
+  min-width: 100vw;
+  min-height: 90vh;
   overflow: hidden;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  background-color: #C1B7AD;
+}
+
+.award {
+  display: none;
+  width: 48px;
+  margin-bottom: 2rem;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/public/mountains-background.jpg");
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.button-primary {
+  background-color: #fbeee0;
+  border: 2px solid #4D4240;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #4D4240;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 12px 18px;
+  line-height: 25px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  @media (min-width: 768px) {
+    .button-74 {
+      min-width: 120px;
+      padding: 0 25px;
+    }
+  }
+}
+
+.button-primary:hover {
+  background-color: #fffbfbef;
+}
+
+.button-primary:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+.moves-container, .buttons-container, .win-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.win-container {
+  display: none;
+}
+
+.panel {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 350px;
+  background-color: #9C9487;
+  border-radius: 30px;
+  border: 1px solid #4D424020;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 3rem 2rem;
 }
 
 .puzzle {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  width: 500px;
-  height: 500px;
-  background-color: #555555;
+  width: 560px;
+  height: 560px;
+  background-color: #444444;
+  border: 30px solid black;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.puzzle__image {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
 }
 
 .puzzle__piece {
   height: 100%;
   width: 100%;
   border: 1px solid #00000070;
+}
+
+.puzzle-wrapper {
+  display: grid;
+  grid-template-columns: 1.5fr auto;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 .slide-right {
@@ -44,6 +153,15 @@ body {
 
 .slide-down {
   animation: ease-in 200ms slidedown;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.win {
+  animation: ease-in 1000ms forwards win; 
 }
 
 @keyframes slideright {
@@ -81,5 +199,17 @@ body {
   }
   to {
     transform: translateY(-100%);
+  }
+}
+
+@keyframes win {
+  from {
+    opacity: 0;
+    display: none;
+  }
+
+  to {
+    opacity: 1;
+    display: block;
   }
 }

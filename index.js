@@ -1,8 +1,23 @@
 const N = 4;
 const PUZZLE_SIZE = 500;
+const HARD_SHUFFLE_MOVES = 100;
+const EASY_SHUFFLE_MOVES = 5;
 const shuffleButton = document.getElementById("shuffle-button");
+const easyShuffleButton = document.getElementById("easy-shuffle-button");
 const puzzle = document.getElementById("puzzle");
-const moveSound = new Audio("https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3");
+const moveSound = new Audio(
+  "https://images.chesscomfiles.com/chess-themes/sounds/_MP3_/default/move-self.mp3"
+);
+const winSound = new Audio(
+  "https://notmaev-shop-assets.s3.amazonaws.com/win.mp3"
+);
+const movesCounter = document.getElementById("moves-counter");
+const movesContainer = document.querySelector(".moves-container");
+const puzzleImage = document.getElementById("puzzle-image");
+const winningMovesSpan = document.getElementById("winning-moves");
+const winContainer = document.querySelector(".win-container");
+let moves = 0;
+let isShuffling = false;
 
 const arraysEqual = (a, b) => {
   if (a === b) return true;
@@ -18,6 +33,10 @@ const arraysEqual = (a, b) => {
 
 const playMoveSound = () => {
   moveSound.play();
+};
+
+const playWinSound = () => {
+  winSound.play();
 };
 
 const createLayout = (n) => {
@@ -64,6 +83,21 @@ const handleAnimationEnd = (piece) => {
   generatePuzzle();
 };
 
+// Updates move counter when a succesful move is made
+const updateMoveCounter = (moves) => {
+  movesCounter.innerText = moves;
+};
+
+const handleWin = () => {
+  puzzleImage.classList.add("win");
+  puzzleImage.style.display = "block";
+  playWinSound();
+  award.style.display = "block";
+  winningMovesSpan.innerHTML = moves;
+  movesContainer.style.display = "none";
+  winContainer.style.display = "flex";
+};
+
 // Moves piece is movement is possible
 const movePiece = (piece) => {
   let row = Number(piece.id.split("-")[1]);
@@ -95,6 +129,8 @@ const movePiece = (piece) => {
   }
   layout[row][col] = "empty";
   piece.addEventListener("animationend", () => handleAnimationEnd(piece));
+  moves++;
+  updateMoveCounter(moves);
   playMoveSound();
   checkWinner();
   return;
@@ -103,6 +139,7 @@ const movePiece = (piece) => {
 // Function to shuffle the puzzle
 // Should be able to provide a solvable puzzle, so it's based on making n random legal moves
 const shufflePuzzle = (n) => {
+  isShuffling = true;
   for (let k = 0; k < n; k++) {
     // Find the empty slot
     const emptySlot = findEmptySlot();
@@ -129,6 +166,7 @@ const shufflePuzzle = (n) => {
         break;
     }
   }
+  isShuffling = false;
 };
 
 // Finds the coordinates of the empty slot and stores them in an object
@@ -151,30 +189,44 @@ const movePieceByCoordinates = (row, col) => {
 
 // Checks if the current puzzle disposition corresponds to the original image
 const checkWinner = () => {
-  console.log(arraysEqual(layout, solution));
-  if (arraysEqual(layout, solution)) {
-    console.log("Winner!");
+  if (arraysEqual(layout, solution) && !isShuffling) {
+    handleWin();
   }
 };
 
-const layout = createLayout(N);
-const solution = createLayout(N);
+const resetGameState = () => {
+  moves = 0;
+  updateMoveCounter(moves);
+};
+
+const resetUI = () => {
+  layout = createLayout(N);
+  puzzleImage.style.display = "none";
+  puzzleImage.classList.remove("win");
+  movesContainer.style.display = "flex";
+  winContainer.style.display = "none";
+};
 
 const startGame = () => {
   generatePuzzle();
-  shufflePuzzle(5);
 };
 
-export { startGame, movePiece, shufflePuzzle, generatePuzzle, checkWinner };
-
-
 puzzle.addEventListener("click", (e) => {
-  console.log(e.target);
   movePiece(e.target);
 });
 
 shuffleButton.addEventListener("click", (e) => {
-  shufflePuzzle(100);
+  resetUI();
+  shufflePuzzle(HARD_SHUFFLE_MOVES);
+  resetGameState();
 });
 
+easyShuffleButton.addEventListener("click", (e) => {
+  resetUI();
+  shufflePuzzle(EASY_SHUFFLE_MOVES);
+  resetGameState();
+});
+
+let layout = createLayout(N);
+const solution = createLayout(N);
 startGame();
